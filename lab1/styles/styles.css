@@ -1,4 +1,46 @@
-.about__item-customize {
-    background-image: url('../images/customizebg.png');
-    
+/* === Google Fonts === */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+/* Переменные */
+:root {
+  --bg: #ffffff;
+  --bg-dark: #17494D;
+  --text: #03363D;
+  --muted: #475569;
+  --brand: #0f766e;
+  --brand-ink: #0b534d;
+  --brand-ghost: #e6f3f2;
+  --accent: #f97316;
+  --link: var(--text);
+  --link-hover: #044952;
+  --border: #e2e8f0;
+  --card: #f8fafc;
+  --section: #f1f5f9;
+  --radius: 14px;
+  --radius-sm: 10px;
+  --shadow: 0 8px 24px rgba(2, 6, 23, 0.08);
+}
+
+body {
+  font-family: Roboto, sans-serif;
+  color: var(--text);
+  background-color: var(--bg);
+  font-size: 16px;
+  line-height: 1.6;
+  font-weight: 400;
+  width: 1440px;
+  margin: auto;
+  text-align: center;
+}
+
+body li {
+  list-style-type: none;
+}
+
+/* Ссылки */
+a { color: var(--link); text-decoration: none; border: 2px solid var(--bg-dark); border-radius: 10px;}
+a:hover, a:focus-visible { color: var(--link-hover); text-decoration: underline; outline: none; }
+
+a:has(img) {
+  border: none;
 }

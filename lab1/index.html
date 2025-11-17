@@ -6,6 +6,7 @@
   <title>Champions of customer service — Zendesk-style landing</title>
   <meta name="description" content="Build software to meet customer needs, set your team up for success, and keep your business in sync.">
   <link rel="icon" href="images/favicon.ico">
+  <link rel="stylesheet" href="styles/normalize.css">
   <link rel="stylesheet" href="styles/styles.css">
 </head>
 <body>
@@ -13,8 +14,16 @@
     <div class="container header__inner">
       <div class="header__brand">
         <a class="header__logo" href="#top" aria-label="Home page">
-          <img src="images/logo.svg" width="112" height="32" alt="Zendesk logo" >
+          <img src="images/logo.svg" width="75" height="65" alt="Zendesk logo">
         </a>
+      </div>
+
+      <div class="header__auth">
+        <a href="#signin">Sign in</a>
+        <a href="#support">Product Support</a>
+        <a href="#company">Company</a>
+        <a href="#contact">Contact us</a>
+        <a href="#lang">English</a>
       </div>
 
       <nav class="header__nav" aria-label="Primary navigation">
@@ -24,19 +33,9 @@
           <li class="nav__item"><a class="nav__link" href="#solutions">Solutions</a></li>
           <li class="nav__item"><a class="nav__link" href="#demo">Demo</a></li>
           <li class="nav__item"><a class="nav__link" href="#resources">Resources</a></li>
-          <li class="nav__item"><a class="nav__link" href="#get-started">Get started</a></li>
+          <li class="nav__item" id="get-started"><a class="nav__link" href="#get-started">Get started</a></li>
         </ul>
       </nav>
-
-      <div class="header__auth">
-        <a href="#signin">Sign in</a>
-        <span aria-hidden="true">·</span>
-        <a href="#support">Product Support</a>
-        <span aria-hidden="true">·</span>
-        <a href="#company">Company</a>
-        <span aria-hidden="true">·</span>
-        <a href="#contact">Contact us</a>
-      </div>
     </div>
   </header>
 
@@ -44,24 +43,24 @@
     <section class="hero" aria-label="Hero">
       <div class="container hero__inner">
         <div class="hero__content">
-          <p class="eyebrow">Zendesk</p>
-          <h1 class="hero__title">Champions<br> of <span class="accent">customer</span> service</h1>
-          <p class="hero__subtitle">Zendesk makes customer service better. We build software to meet customer needs, set your team up for success, and keep your business in sync.</p>
-          <div class="hero__actions">
-            <a class="button" href="#get-started">Free trial</a>
-            <a class="button button--ghost" href="#demo">View demo</a>
-          </div>
+          <h1 class="hero__title"><span class="champions-color">Champions</span> <br> of&nbsp;<span class="accent customer-color">customer</span> <span class="accent service-color">service</span></h1>
+          <div><p class="hero__subtitle">Zendesk makes customer service better. We build software to meet customer needs, set your team up for success, and keep your business in sync.</p>
+            <div class="hero__actions">
+              <a class="button" href="#get-started">Free trial</a>
+              <a class="button button--ghost" href="#demo">View demo</a>
+            </div>
+          </div>  
         </div>
       </div>
     </section>
 
     <section id="features" class="features" aria-labelledby="features-title">
-      <div class="container">
-        <h2 id="features-title">Go all in on messaging</h2>
+      <div class="container features-container">
         <figure class="hero__media">
           <img src="images/hero.png" alt="Hero collage with customer service UI" loading="lazy">
           <figcaption class="visually-hidden">Messaging previews and happy customer</figcaption>
         </figure>
+        <h2 id="features-title">Go all in on messaging</h2>
         <div class="features__intro">
           <p>On the surface — Zendesk messaging is a simple layer that sits on your website and inside your mobile app. But under the hood, it’s a powerful engagement channel that connects your customer support — and all of your teams — with customers everywhere.</p>
           <p><a href="#watch-video">Watch video</a>. <a href="#details">Get the details</a>.</p>
