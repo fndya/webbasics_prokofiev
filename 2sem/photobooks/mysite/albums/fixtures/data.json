@@ -1,0 +1,359 @@
+[
+  {
+    "model": "albums.role",
+    "pk": 1,
+    "fields": {
+      "name": "Пользователь",
+      "description": "Обычный пользователь"
+    }
+  },
+  {
+    "model": "albums.role",
+    "pk": 2,
+    "fields": {
+      "name": "Администратор",
+      "description": "Полный доступ"
+    }
+  },
+
+  {
+    "model": "albums.format",
+    "pk": 1,
+    "fields": {
+      "name": "A4 Горизонтальный",
+      "width_mm": 297,
+      "height_mm": 210,
+      "orientation": "landscape",
+      "is_active": true
+    }
+  },
+  {
+    "model": "albums.format",
+    "pk": 2,
+    "fields": {
+      "name": "A4 Вертикальный",
+      "width_mm": 210,
+      "height_mm": 297,
+      "orientation": "portrait",
+      "is_active": true
+    }
+  },
+  {
+    "model": "albums.format",
+    "pk": 3,
+    "fields": {
+      "name": "20×20 Квадрат",
+      "width_mm": 200,
+      "height_mm": 200,
+      "orientation": "square",
+      "is_active": true
+    }
+  },
+  {
+    "model": "albums.format",
+    "pk": 4,
+    "fields": {
+      "name": "30×30 Квадрат",
+      "width_mm": 300,
+      "height_mm": 300,
+      "orientation": "square",
+      "is_active": true
+    }
+  },
+  {
+    "model": "albums.format",
+    "pk": 5,
+    "fields": {
+      "name": "Премиум 25×25",
+      "width_mm": 250,
+      "height_mm": 250,
+      "orientation": "square",
+      "is_active": true
+    }
+  },
+  {
+    "model": "albums.format",
+    "pk": 6,
+    "fields": {
+      "name": "Мини 15×15",
+      "width_mm": 150,
+      "height_mm": 150,
+      "orientation": "square",
+      "is_active": true
+    }
+  },
+
+  {
+    "model": "albums.covertype",
+    "pk": 1,
+    "fields": {
+      "name": "Мягкая",
+      "description": "Стандартная мягкая обложка",
+      "is_active": true
+    }
+  },
+  {
+    "model": "albums.covertype",
+    "pk": 2,
+    "fields": {
+      "name": "Твёрдая",
+      "description": "Усиленная обложка",
+      "is_active": true
+    }
+  },
+  {
+    "model": "albums.covertype",
+    "pk": 3,
+    "fields": {
+      "name": "Кожаная",
+      "description": "Премиальная кожаная обложка",
+      "is_active": true
+    }
+  },
+  {
+    "model": "albums.covertype",
+    "pk": 4,
+    "fields": {
+      "name": "Льняная",
+      "description": "Тканевая льняная обложка",
+      "is_active": true
+    }
+  },
+
+  {
+    "model": "albums.albumstatus",
+    "pk": 1,
+    "fields": {
+      "name": "Черновик",
+      "description": ""
+    }
+  },
+  {
+    "model": "albums.albumstatus",
+    "pk": 2,
+    "fields": {
+      "name": "В процессе",
+      "description": ""
+    }
+  },
+  {
+    "model": "albums.albumstatus",
+    "pk": 3,
+    "fields": {
+      "name": "Готов",
+      "description": ""
+    }
+  },
+
+  {
+    "model": "albums.photo",
+    "pk": 1,
+    "fields": {
+      "user": 1,
+      "file_path": "photos/1.jpg",
+      "thumbnail_path": "",
+      "file_size_bytes": 200000,
+      "width_px": 1024,
+      "height_px": 768,
+      "created_at": "2024-01-10T10:00:00Z"
+    }
+  },
+  {
+    "model": "albums.photo",
+    "pk": 2,
+    "fields": {
+      "user": 1,
+      "file_path": "photos/2.jpg",
+      "thumbnail_path": "",
+      "file_size_bytes": 180000,
+      "width_px": 1000,
+      "height_px": 700,
+      "created_at": "2024-01-11T11:00:00Z"
+    }
+  },
+  {
+    "model": "albums.photo",
+    "pk": 3,
+    "fields": {
+      "user": 1,
+      "file_path": "photos/3.jpg",
+      "thumbnail_path": "",
+      "file_size_bytes": 150000,
+      "width_px": 900,
+      "height_px": 600,
+      "created_at": "2024-01-12T12:00:00Z"
+    }
+  },
+  {
+    "model": "albums.photo",
+    "pk": 4,
+    "fields": {
+      "user": 1,
+      "file_path": "photos/4.jpg",
+      "thumbnail_path": "",
+      "file_size_bytes": 250000,
+      "width_px": 1200,
+      "height_px": 800,
+      "created_at": "2024-01-13T13:00:00Z"
+    }
+  },
+  {
+    "model": "albums.photo",
+    "pk": 5,
+    "fields": {
+      "user": 1,
+      "file_path": "photos/5.jpg",
+      "thumbnail_path": "",
+      "file_size_bytes": 160000,
+      "width_px": 1024,
+      "height_px": 768,
+      "created_at": "2024-01-14T14:00:00Z"
+    }
+  },
+
+  {
+    "model": "albums.album",
+    "pk": 1,
+    "fields": {
+      "user": 1,
+      "title": "Наше лето 2024",
+      "format": 1,
+      "cover_type": 2,
+      "status": 3,
+      "cover_photo": 1,
+      "page_count": 3,
+      "created_at": "2024-02-01T15:00:00Z",
+      "updated_at": "2024-02-10T15:00:00Z"
+    }
+  },
+  {
+    "model": "albums.album",
+    "pk": 2,
+    "fields": {
+      "user": 1,
+      "title": "Мой выпускной",
+      "format": 4,
+      "cover_type": 3,
+      "status": 3,
+      "cover_photo": 2,
+      "page_count": 4,
+      "created_at": "2024-02-02T15:00:00Z",
+      "updated_at": "2024-02-11T15:00:00Z"
+    }
+  },
+  {
+    "model": "albums.album",
+    "pk": 3,
+    "fields": {
+      "user": 1,
+      "title": "Поездка в Сочи",
+      "format": 3,
+      "cover_type": 1,
+      "status": 2,
+      "cover_photo": 3,
+      "page_count": 2,
+      "created_at": "2024-02-03T15:00:00Z",
+      "updated_at": "2024-02-12T15:00:00Z"
+    }
+  },
+
+  {
+    "model": "albums.albumpage",
+    "pk": 1,
+    "fields": {
+      "album": 1,
+      "page_number": 1,
+      "created_at": "2024-02-01T16:00:00Z",
+      "updated_at": "2024-02-01T16:00:00Z"
+    }
+  },
+  {
+    "model": "albums.albumpage",
+    "pk": 2,
+    "fields": {
+      "album": 1,
+      "page_number": 2,
+      "created_at": "2024-02-01T16:00:00Z",
+      "updated_at": "2024-02-01T16:00:00Z"
+    }
+  },
+  {
+    "model": "albums.albumpage",
+    "pk": 3,
+    "fields": {
+      "album": 1,
+      "page_number": 3,
+      "created_at": "2024-02-01T16:00:00Z",
+      "updated_at": "2024-02-01T16:00:00Z"
+    }
+  },
+
+  {
+    "model": "albums.albumpagephoto",
+    "pk": 1,
+    "fields": {
+      "page": 1,
+      "photo": 1,
+      "x": 0,
+      "y": 0,
+      "width": 50,
+      "height": 50,
+      "rotation_angle": 0,
+      "z_index": 1,
+      "caption_text": "",
+      "created_at": "2024-02-01T17:00:00Z",
+      "updated_at": "2024-02-01T17:00:00Z"
+    }
+  },
+  {
+    "model": "albums.albumpagephoto",
+    "pk": 2,
+    "fields": {
+      "page": 1,
+      "photo": 2,
+      "x": 50,
+      "y": 0,
+      "width": 50,
+      "height": 50,
+      "rotation_angle": 0,
+      "z_index": 1,
+      "caption_text": "",
+      "created_at": "2024-02-01T17:00:00Z",
+      "updated_at": "2024-02-01T17:00:00Z"
+    }
+  },
+
+  {
+    "model": "albums.order",
+    "pk": 1,
+    "fields": {
+      "user": 1,
+      "status": "Новый",
+      "total_price": "8000.00",
+      "delivery_address": "Москва, ул. Пушкина, 1",
+      "created_at": "2024-03-01T10:00:00Z",
+      "updated_at": "2024-03-01T10:00:00Z"
+    }
+  },
+
+  {
+    "model": "albums.orderitem",
+    "pk": 1,
+    "fields": {
+      "order": 1,
+      "album": 1,
+      "quantity": 1,
+      "price_per_item": "2000.00"
+    }
+  },
+  {
+    "model": "albums.orderitem",
+    "pk": 2,
+    "fields": {
+      "order": 1,
+      "album": 2,
+      "quantity": 1,
+      "price_per_item": "6000.00"
+    }
+  }
+]
