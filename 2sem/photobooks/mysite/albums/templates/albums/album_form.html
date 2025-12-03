@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ru">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>
+        {% if mode == 'edit' %}Редактировать альбом{% else %}Новый альбом{% endif %}
+    </title>
+    <link rel="stylesheet" href="{% static 'albums/style.css' %}">
+</head>
+<body>
+<header class="header">
+    <div class="container">
+        <h1 class="logo">PhotoAlbumCraft</h1>
+        <nav class="main-nav">
+            <a href="{% url 'index' %}">Главная</a>
+            <a href="{% url 'album_list' %}">Мои альбомы</a>
+        </nav>
+    </div>
+</header>
+
+<main class="container">
+    <section class="widget">
+        <h2>
+            {% if mode == 'edit' %}Редактировать альбом{% else %}Создать новый альбом{% endif %}
+        </h2>
+
+        <form method="post" enctype="multipart/form-data" class="form">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+
+            {% for field in form %}
+            <div class="form-row">
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {% if field.help_text %}
+                <div class="help-text">{{ field.help_text }}</div>
+                {% endif %}
+                {{ field.errors }}
+            </div>
+            {% endfor %}
+
+            <button type="submit" class="btn-primary">
+                {% if mode == 'edit' %}Сохранить{% else %}Создать{% endif %}
+            </button>
+        </form>
+    </section>
+</main>
+</body>
+</html>

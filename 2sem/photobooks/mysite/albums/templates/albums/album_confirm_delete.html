@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ru">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>Удаление альбома — {{ album.title }}</title>
+    <link rel="stylesheet" href="{% static 'albums/style.css' %}">
+</head>
+<body>
+<header class="header">
+    <div class="container">
+        <h1 class="logo">PhotoAlbumCraft</h1>
+        <nav class="main-nav">
+            <a href="{% url 'index' %}">Главная</a>
+            <a href="{% url 'album_list' %}">Мои альбомы</a>
+        </nav>
+    </div>
+</header>
+
+<main class="container">
+    <section class="widget">
+        <h2>Удалить альбом?</h2>
+        <p>Вы действительно хотите удалить альбом <strong>"{{ album.title }}"</strong>?</p>
+
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn-primary danger">Да, удалить</button>
+            <a href="{% url 'album_detail' album.id %}" class="btn-link">Отмена</a>
+        </form>
+    </section>
+</main>
+</body>
+</html>

@@ -1,10 +1,11 @@
 from django.shortcuts import render
 
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.db.models import Count, Sum, Q
+from .forms import AlbumForm
 
-from .models import Album, Format, Order
+from .models import Album, Format, Order, AlbumPage, AlbumPagePhoto
 
 
 @login_required
@@ -68,3 +69,104 @@ def index(request):
         'total_photos_in_found_albums': total_photos_in_found_albums,
     }
     return render(request, 'index.html', context)
+
+@login_required
+def album_list(request):
+    """Список всех альбомов текущего пользователя + кнопки CRUD."""
+    albums = (
+        Album.objects
+        .filter(user=request.user)
+        .select_related("format", "cover_type", "status")
+        .annotate(photo_count=Count("albumpage__albumpagephoto", distinct=True))
+        .order_by("-updated_at")
+    )
+    return render(request, "albums/album_list.html", {"albums": albums})
+
+
+@login_required
+def album_detail(request, album_id):
+    """Отдельная страница альбома: вся инфа + связанные объекты."""
+    album = get_object_or_404(
+        Album.objects.select_related("format", "cover_type", "status", "user"),
+        pk=album_id,
+        user=request.user,
+    )
+
+    pages = (
+        AlbumPage.objects
+        .filter(album=album)
+        .order_by("page_number")
+    )
+
+    # Все фото с координатами по страницам
+    page_photos = (
+        AlbumPagePhoto.objects
+        .filter(page__album=album)
+        .select_related("page", "photo")
+        .order_by("page__page_number", "z_index")
+    )
+
+    # Простая группировка: страница -> список фото
+    photos_by_page = {}
+    for ap in page_photos:
+        photos_by_page.setdefault(ap.page_id, []).append(ap)
+
+    context = {
+        "album": album,
+        "pages": pages,
+        "photos_by_page": photos_by_page,
+    }
+    return render(request, "albums/album_detail.html", context)
+
+
+@login_required
+def album_create(request):
+    """Создание нового альбома."""
+    if request.method == "POST":
+        form = AlbumForm(request.POST, request.FILES)
+        if form.is_valid():
+            album = form.save(commit=False)
+            album.user = request.user
+            album.save()
+            return redirect("album_detail", album_id=album.id)
+    else:
+        form = AlbumForm()
+
+    return render(request, "albums/album_form.html", {
+        "form": form,
+        "mode": "create",
+    })
+
+
+@login_required
+def album_update(request, album_id):
+    """Редактирование существующего альбома."""
+    album = get_object_or_404(Album, pk=album_id, user=request.user)
+
+    if request.method == "POST":
+        form = AlbumForm(request.POST, request.FILES, instance=album)
+        if form.is_valid():
+            form.save()
+            return redirect("album_detail", album_id=album.id)
+    else:
+        form = AlbumForm(instance=album)
+
+    return render(request, "albums/album_form.html", {
+        "form": form,
+        "mode": "edit",
+        "album": album,
+    })
+
+
+@login_required
+def album_delete(request, album_id):
+    """Удаление альбома (с подтверждением)."""
+    album = get_object_or_404(Album, pk=album_id, user=request.user)
+
+    if request.method == "POST":
+        album.delete()
+        return redirect("album_list")
+
+    return render(request, "albums/album_confirm_delete.html", {
+        "album": album,
+    })

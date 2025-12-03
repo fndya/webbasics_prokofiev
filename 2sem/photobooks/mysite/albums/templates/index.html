@@ -13,7 +13,7 @@
 <body>
 <header class="header">
     <div class="container">
-        <h1 class="logo">PhotoAlbumCraft</h1>
+        <h1 class="logo">FedorCraft</h1>
     </div>
 </header>
 
@@ -63,7 +63,11 @@
             <ol>
                 {% for album in last_albums %}
                 <li class="item hoverable">
-                    <div class="item-title clickable">{{ album.title }}</div>
+                    <div class="item-title">
+                         <a href="{% url 'album_detail' album.id %}" class="clickable">
+                           {{ album.title }}
+                         </a>
+                    </div>
                     <div class="item-info">
                         Формат: {{ album.format.name }}<br>
                         Фото: {{ album.photo_count }}<br>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ru">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>{{ album.title }} — Альбом</title>
+    <link rel="stylesheet" href="{% static 'albums/style.css' %}">
+</head>
+<body>
+
+<header class="header">
+    <div class="container">
+        <h1 class="logo">PhotoAlbumCraft</h1>
+        <nav class="main-nav">
+            <a href="{% url 'index' %}">Главная</a>
+            <a href="{% url 'album_list' %}">Мои альбомы</a>
+        </nav>
+    </div>
+</header>
+
+<main class="container">
+
+    <section class="widget">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+            <h2>{{ album.title }}</h2>
+            <div>
+                <a href="{% url 'album_update' album.id %}" class="btn-link">✏️ Редактировать</a> |
+                <a href="{% url 'album_delete' album.id %}" class="btn-link danger">🗑 Удалить</a>
+            </div>
+        </div>
+
+        <p><strong>Формат:</strong> {{ album.format.name }} ({{ album.format.width_mm }}×{{ album.format.height_mm }} мм)</p>
+        <p><strong>Ориентация:</strong> {{ album.format.get_orientation_display }}</p>
+        <p><strong>Тип обложки:</strong> {{ album.cover_type.name }}</p>
+        <p><strong>Статус:</strong> {{ album.status.name }}</p>
+        <p><strong>Страниц:</strong> {{ album.page_count }}</p>
+        <p><strong>Создан:</strong> {{ album.created_at|date:"d.m.Y H:i" }}</p>
+        <p><strong>Изменён:</strong> {{ album.updated_at|date:"d.m.Y H:i" }}</p>
+    </section>
+
+    <section class="widget">
+        <h3>Страницы альбома</h3>
+
+        {% if pages %}
+        <ol>
+            {% for page in pages %}
+            <li class="item">
+                <div class="item-title">Страница {{ page.page_number }}</div>
+
+                <div class="item-info">
+                    Фото на странице: {{ page.albumpagephoto_set.all|length }}
+                </div>
+
+                {% if page.albumpagephoto_set.all %}
+                <ul class="item-info">
+                    {% for ap in page.albumpagephoto_set.all %}
+                    <li>
+                        Фото #{{ ap.photo.id }} —
+                        позиция ({{ ap.x }}, {{ ap.y }}),
+                        размер {{ ap.width }}×{{ ap.height }},
+                        подпись: {{ ap.caption_text|default:"—" }}
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ol>
+        {% else %}
+        <p>У этого альбома пока нет страниц.</p>
+        {% endif %}
+    </section>
+
+</main>
+
+</body>
+</html>

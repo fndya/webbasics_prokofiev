@@ -19,6 +19,6 @@ document.querySelectorAll(".fav-btn").forEach((btn) => {
 // Кликабельные названия
 document.querySelectorAll(".clickable").forEach((el) => {
     el.addEventListener("click", () => {
-        alert("Открытие альбома (будущая функция)");
+        console.log("Открытие альбома");
     });
 });
