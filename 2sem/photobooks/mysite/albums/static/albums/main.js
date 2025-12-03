@@ -7,7 +7,6 @@ document.querySelectorAll(".hoverable").forEach((el) => {
         el.classList.remove("hover-active");
     });
 });
-
 // Кнопки «★ избранное»
 document.querySelectorAll(".fav-btn").forEach((btn) => {
     btn.addEventListener("click", () => {
@@ -17,7 +16,6 @@ document.querySelectorAll(".fav-btn").forEach((btn) => {
         btn.textContent = "★";
     });
 });
-
 // Кликабельные названия
 document.querySelectorAll(".clickable").forEach((el) => {
     el.addEventListener("click", () => {

@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "es6",
+    "outDir": "./albums/static/albums/",
+    "strict": false
+  },
+  "include": ["./albums/static/albums/**/*.ts"],
+  "exclude": []
+}

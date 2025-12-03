@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ru">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>Главная — Конструктор фотоальбомов</title>
+
+    <!-- Подключаем CSS -->
+    <link rel="stylesheet" href="{% static 'albums/style.css' %}">
+    <script src="{% static 'albums/main.js' %}" defer></script>
+</head>
+
+<body>
+<header class="header">
+    <div class="container">
+        <h1 class="logo">PhotoAlbumCraft</h1>
+    </div>
+</header>
+
+<main class="container">
+
+    <!-- Поиск -->
+    <form method="get" class="search-bar">
+        <input type="text" name="q" class="search-input"
+               placeholder="Поиск по названию или формату"
+               value="{{ query|default:'' }}">
+        <button class="search-btn">Найти</button>
+    </form>
+
+    {% if query %}
+    <section class="widget">
+        <h2>Результаты поиска: "{{ query }}"</h2>
+
+        {% if search_results %}
+            <ol>
+                {% for album in search_results %}
+                <li class="item">
+                    <div class="item-title">{{ album.title }}</div>
+                    <div class="item-info">
+                        Формат: {{ album.format.name }}<br>
+                        Статус: {{ album.status.name }}<br>
+                        Фото: {{ album.photo_count }}
+                    </div>
+                </li>
+                {% endfor %}
+            </ol>
+
+            {% if total_photos_in_found_albums %}
+            <p class="total">Всего фото: {{ total_photos_in_found_albums }}</p>
+            {% endif %}
+        {% else %}
+            <p>Ничего не найдено.</p>
+        {% endif %}
+    </section>
+    {% endif %}
+
+    <div class="widgets-grid">
+
+        <!-- Виджет: Мои последние альбомы -->
+        <section class="widget">
+            <h2>Мои последние альбомы</h2>
+            {% if last_albums %}
+            <ol>
+                {% for album in last_albums %}
+                <li class="item hoverable">
+                    <div class="item-title clickable">{{ album.title }}</div>
+                    <div class="item-info">
+                        Формат: {{ album.format.name }}<br>
+                        Фото: {{ album.photo_count }}<br>
+                        Обновлён: {{ album.updated_at|date:"d.m.Y H:i" }}
+                    </div>
+                    <button class="fav-btn" data-id="{{ album.id }}">★</button>
+                </li>
+                {% endfor %}
+            </ol>
+            {% else %}
+            <p>Нет альбомов.</p>
+            {% endif %}
+        </section>
+
+        <!-- Виджет: Популярные форматы -->
+        <section class="widget">
+            <h2>Популярные форматы</h2>
+            {% if popular_formats %}
+            <ol>
+                {% for fmt in popular_formats %}
+                <li class="item">
+                    <div class="item-title">{{ fmt.name }}</div>
+                    <div class="item-info">
+                        Размер: {{ fmt.width_mm }}×{{ fmt.height_mm }} мм<br>
+                        Заказов: {{ fmt.order_count }}
+                    </div>
+                </li>
+                {% endfor %}
+            </ol>
+            {% else %}
+            <p>Нет данных.</p>
+            {% endif %}
+        </section>
+
+        <!-- Виджет: Активные заказы -->
+        <section class="widget">
+            <h2>Активные заказы</h2>
+            {% if active_orders %}
+            <ol>
+                {% for order in active_orders %}
+                <li class="item">
+                    <div class="item-title">Заказ #{{ order.id }}</div>
+                    <div class="item-info">
+                        Статус: {{ order.status }}<br>
+                        Сумма: {{ order.total_price }} ₽
+                    </div>
+                </li>
+                {% endfor %}
+            </ol>
+            {% else %}
+            <p>Нет активных заказов.</p>
+            {% endif %}
+        </section>
+    </div>
+</main>
+
+</body>
+</html>
