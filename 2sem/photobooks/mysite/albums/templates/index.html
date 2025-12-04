@@ -13,8 +13,17 @@
 <body>
 <header class="header">
     <div class="container">
-        <h1 class="logo">FedorCraft</h1>
+        <h1 class="logo">PhotoAlbumCraft</h1>
+        <nav class="main-nav">
+            <a href="{% url 'index' %}" class="active">Главная</a>
+            <a href="{% url 'album_list' %}">Мои альбомы</a>
+            <div class="theme-toggle" id="themeToggle">
+                <span id="themeIcon">🌙</span>
+            </div>
+        </nav>
+    
     </div>
+    
 </header>
 
 <main class="container">
@@ -24,7 +33,7 @@
         <input type="text" name="q" class="search-input"
                placeholder="Поиск по названию или формату"
                value="{{ query|default:'' }}">
-        <button class="search-btn">Найти</button>
+        <button class="btn-primary" type="submit">Найти</button>
     </form>
 
     {% if query %}
@@ -73,7 +82,11 @@
                         Фото: {{ album.photo_count }}<br>
                         Обновлён: {{ album.updated_at|date:"d.m.Y H:i" }}
                     </div>
-                    <button class="fav-btn" data-id="{{ album.id }}">★</button>
+                    <button class="fav-btn" data-id="{{ album.id }}">
+                        <svg class="fav-icon" viewBox="0 0 24 24">
+                            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.62L12 2 9.19 8.62 2 9.24l5.46 4.73L5.82 21z"/>
+                        </svg>
+                    </button>
                 </li>
                 {% endfor %}
             </ol>

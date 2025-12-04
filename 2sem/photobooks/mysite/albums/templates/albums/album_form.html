@@ -7,6 +7,7 @@
         {% if mode == 'edit' %}Редактировать альбом{% else %}Новый альбом{% endif %}
     </title>
     <link rel="stylesheet" href="{% static 'albums/style.css' %}">
+    <script src="{% static 'albums/main.js' %}" defer></script>
 </head>
 <body>
 <header class="header">
@@ -15,6 +16,9 @@
         <nav class="main-nav">
             <a href="{% url 'index' %}">Главная</a>
             <a href="{% url 'album_list' %}">Мои альбомы</a>
+            <div class="theme-toggle" id="themeToggle">
+                <span id="themeIcon">🌙</span>
+            </div>
         </nav>
     </div>
 </header>

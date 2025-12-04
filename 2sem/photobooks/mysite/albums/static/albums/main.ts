@@ -9,18 +9,34 @@ document.querySelectorAll(".hoverable").forEach((el) => {
 });
 
 // Кнопки «★ избранное»
+// Кнопки «избранное»
 document.querySelectorAll(".fav-btn").forEach((btn) => {
     btn.addEventListener("click", () => {
-        const id = btn.getAttribute("data-id");
-        alert(`Альбом ${id} добавлен в избранное (пока только визуально)`);
-        btn.classList.add("fav-btn-active");
-        btn.textContent = "★";
+        btn.classList.toggle("fav-btn-active");
     });
 });
+
 
 // Кликабельные названия
 document.querySelectorAll(".clickable").forEach((el) => {
     el.addEventListener("click", () => {
         console.log("Открытие альбома");
     });
+});
+
+const themeToggle = document.getElementById("themeToggle");
+const themeIcon = document.getElementById("themeIcon");
+
+// при загрузке — применяем тему из localStorage
+if (localStorage.getItem("theme") === "dark") {
+    document.body.classList.add("dark");
+    if (themeIcon) themeIcon.textContent = "☀️";
+}
+
+// переключение темы
+themeToggle?.addEventListener("click", () => {
+    const isDark = document.body.classList.toggle("dark");
+    localStorage.setItem("theme", isDark ? "dark" : "light");
+
+    if (themeIcon) themeIcon.textContent = isDark ? "☀️" : "🌙";
 });
