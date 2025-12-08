@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>CoffeePlace — Главная</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<header class="header">
+    <div class="container header-inner">
+        <h1 class="logo">CoffeePlace</h1>
+        <nav class="nav">
+            <a href="index.html">Главная</a>
+            <a href="drink.html">Меню</a>
+            <a href="#form">Бронирование</a>
+        </nav>
+    </div>
+</header>
+
+<main>
+
+<section class="hero">
+    <div class="hero-content">
+        <h2>Свежая обжарка. Идеальный вкус.</h2>
+        <p>Кофейня, в которую хочется возвращаться.</p>
+        <a href="drink.html" class="btn hero-btn">Смотреть меню</a>
+    </div>
+</section>
+
+<section class="container cards">
+    <article class="card">
+        <img src="img/capuccino.jpg" alt="Капучино">
+        <h3>Капучино</h3>
+        <p>Мягкий вкус с молочной пенкой.</p>
+        <a href="drink.html" class="btn-sm">Подробнее</a>
+    </article>
+    <article class="card">
+        <img src="img/latte.jpg" alt="Латте">
+        <h3>Латте</h3>
+        <p>Нежный кофе с молоком.</p>
+        <a href="#" class="btn-sm">Подробнее</a>
+    </article>
+    <article class="card">
+        <img src="img/americano.jpg" alt="Американо">
+        <h3>Американо</h3>
+        <p>Классический вкус кофе.</p>
+        <a href="#" class="btn-sm">Подробнее</a>
+    </article>
+</section>
+
+<section id="form" class="form-block">
+    <div class="container">
+        <h2>Бронирование столика</h2>
+        <form action="thankyou.html" method="get" class="form">
+            <label>Имя*
+                <input type="text" name="name" required>
+            </label>
+
+            <label>Телефон*
+                <input type="tel" name="phone" required>
+            </label>
+
+            <label>Дата и время*
+                <input type="datetime-local" name="time" required>
+            </label>
+
+            <button type="submit" class="btn">Забронировать</button>
+        </form>
+    </div>
+</section>
+
+</main>
+
+<footer class="footer">
+    <div class="container">
+        <p>© CoffeePlace, 2025</p>
+    </div>
+</footer>
+
+</body>
+</html>
