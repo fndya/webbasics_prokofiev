@@ -4,8 +4,8 @@ from django.contrib import admin
 from .models import (
     Role, Format, CoverType, AlbumStatus,
     UserRole, Photo, Album, AlbumPage, AlbumPagePhoto,
-    Order, OrderItem
-)
+    Order, OrderItem, FavoriteAlbum
+) 
 
 
 # ---------- INLINE КЛАССЫ ----------
@@ -126,3 +126,9 @@ class OrderItemAdmin(admin.ModelAdmin):
     list_display = ("order", "album", "quantity", "price_per_item")
     raw_id_fields = ("order", "album")
 
+
+@admin.register(FavoriteAlbum)
+class FavoriteAlbumAdmin(admin.ModelAdmin):
+    list_display = ("user", "album", "added_at")
+    search_fields = ("user__username", "album__title")
+    raw_id_fields = ("user", "album")

@@ -11,8 +11,18 @@ document.querySelectorAll(".hoverable").forEach((el) => {
 // Кнопки «★ избранное»
 // Кнопки «избранное»
 document.querySelectorAll(".fav-btn").forEach((btn) => {
-    btn.addEventListener("click", () => {
-        btn.classList.toggle("fav-btn-active");
+    btn.addEventListener("click", async () => {
+        const albumId = btn.getAttribute("data-id");
+        if (!albumId) return;
+
+        const response = await fetch(`/favorite/${albumId}/`);
+        const data = await response.json();
+
+        if (data.status === "added") {
+            btn.classList.add("fav-btn-active");
+        } else if (data.status === "removed") {
+            btn.classList.remove("fav-btn-active");
+        }
     });
 });
 

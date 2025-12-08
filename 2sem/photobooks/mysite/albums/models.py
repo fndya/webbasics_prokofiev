@@ -112,6 +112,13 @@ class Album(models.Model):
     page_count = models.PositiveIntegerField(default=0, verbose_name="Количество страниц")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Создан")
     updated_at = models.DateTimeField(auto_now=True, verbose_name="Изменён")
+    favorited_by = models.ManyToManyField(
+        User,
+        through="FavoriteAlbum",
+        related_name="favorite_albums",
+        blank=True,
+        verbose_name="Пользователи, добавившие в избранное"
+     )
 
     class Meta:
         verbose_name = "Альбом"
@@ -191,3 +198,16 @@ class OrderItem(models.Model):
 
     def __str__(self):
         return f"{self.album.title} × {self.quantity}"
+
+class FavoriteAlbum(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Пользователь")
+    album = models.ForeignKey("Album", on_delete=models.CASCADE, verbose_name="Альбом")
+    added_at = models.DateTimeField(auto_now_add=True, verbose_name="Добавлен в избранное")
+
+    class Meta:
+        verbose_name = "Избранный альбом"
+        verbose_name_plural = "Избранные альбомы"
+        unique_together = ("user", "album")
+
+    def __str__(self):
+        return f"{self.user.username} → {self.album.title}"

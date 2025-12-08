@@ -8,4 +8,5 @@ urlpatterns = [
     path("albums/<int:album_id>/", views.album_detail, name="album_detail"),
     path("albums/<int:album_id>/edit/", views.album_update, name="album_update"),
     path("albums/<int:album_id>/delete/", views.album_delete, name="album_delete"),
+    path("favorite/<int:album_id>/", views.toggle_favorite, name="toggle_favorite"),
 ]

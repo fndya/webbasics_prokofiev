@@ -1,3 +1,12 @@
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 // Подсветка элементов
 document.querySelectorAll(".hoverable").forEach((el) => {
     el.addEventListener("mousemove", () => {
@@ -10,9 +19,19 @@ document.querySelectorAll(".hoverable").forEach((el) => {
 // Кнопки «★ избранное»
 // Кнопки «избранное»
 document.querySelectorAll(".fav-btn").forEach((btn) => {
-    btn.addEventListener("click", () => {
-        btn.classList.toggle("fav-btn-active");
-    });
+    btn.addEventListener("click", () => __awaiter(this, void 0, void 0, function* () {
+        const albumId = btn.getAttribute("data-id");
+        if (!albumId)
+            return;
+        const response = yield fetch(`/favorite/${albumId}/`);
+        const data = yield response.json();
+        if (data.status === "added") {
+            btn.classList.add("fav-btn-active");
+        }
+        else if (data.status === "removed") {
+            btn.classList.remove("fav-btn-active");
+        }
+    }));
 });
 // Кликабельные названия
 document.querySelectorAll(".clickable").forEach((el) => {
