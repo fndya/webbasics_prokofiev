@@ -17,6 +17,11 @@ body {
     background: #2b2b2b;
     color: white;
     padding: 15px 0;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    transition: box-shadow 0.3s ease, background 0.3s ease;
+    backdrop-filter: blur(10px);
 }
 
 .header-inner {
@@ -25,49 +30,169 @@ body {
     align-items: center;
 }
 
-.nav a {
-    margin-left: 25px;
-    color: #f3e8d9;
-    text-decoration: none;
-    font-weight: 500;
+.nav {
+    display: flex;
+    gap: 28px;
+    align-items: center;
 }
 
-.nav a:hover {
+/* Базовый стиль ссылки */
+.nav-link {
+    position: relative;
+    text-decoration: none;
+    color: #f3e8d9;
+    font-weight: 500;
+    font-size: 17px;
+    letter-spacing: 0.3px;
+    padding: 6px 8px; /* фиксированный padding */
+    height: 32px; /* фиксируем высоту для стабильности */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color .3s ease, transform .3s ease;
+}
+
+/* Hover — лёгкое поднятие и свечение */
+.nav-link:hover {
     color: white;
+    transform: translateY(-2px);
+    text-shadow: 0 0 12px rgba(255,255,255,0.5);
+    background: rgba(255,255,255,0.06);
+    padding: 6px 8px;
+    border-radius: 6px;
+    backdrop-filter: blur(4px);
+}
+
+.nav-link::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 6px;
+    background: rgba(255,255,255,0.06);
+    backdrop-filter: blur(4px);
+    opacity: 0;
+    transition: opacity .3s ease;
+    z-index: -1;
+}
+
+.nav-link:hover::before {
+    opacity: 1;
+}
+
+/* Подчёркивание при наведении — “скользящее” */
+.nav-link::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    height: 2px;
+    width: 100%;
+    background: linear-gradient(90deg, #e4b07a, #fff);
+    border-radius: 2px;
+
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform .35s ease;
+}
+
+.nav-link:hover::after {
+    transform: scaleX(1);
+}
+
+/* Активный пункт меню */
+.nav-link.active,
+.nav-link:focus {
+    color: #fff;
+}
+
+.nav-link.active::after {
+    transform: scaleX(1);
+}
+
+/* Плавное появление навбара */
+.header-inner {
+    animation: navFade 0.8s ease forwards;
+    opacity: 0;
+}
+
+@keyframes navFade {
+    to { opacity: 1; }
 }
 
 /* HERO */
 .hero {
-    height: 80vh;
-    background: url('../img/coffee.jpg') top center/cover no-repeat;
+    height: 100vh; /* 👈 занимает всю высоту экрана */
+    background: url("../img/coffee.jpg") center/cover no-repeat;
+    background-attachment: fixed; /* параллакс */
     position: relative;
     display: flex;
+    justify-content: center;
     align-items: center;
 }
 
+/* Затемнение + градиент */
 .hero::before {
     content: "";
     position: absolute;
     inset: 0;
-    background: rgba(0,0,0,0.45);
+    background:
+        linear-gradient(to bottom, rgba(0,0,0,0.55), rgba(0,0,0,0.85)),
+        rgba(0,0,0,0.4);
+    backdrop-filter: blur(2px);
 }
 
+/* Модное "матовое стекло" для текста */
 .hero-content {
     position: relative;
+    padding: 40px 50px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     color: white;
-    padding: 20px;
-    max-width: 600px;
-    animation: fade 1.2s ease;
+    text-align: center;
+    max-width: 700px;
+
+    animation: heroFade 1.2s ease-out;
 }
 
-.hero h2 {
-    font-size: 48px;
-    margin-bottom: 10px;
+.hero-content h2 {
+    font-size: 54px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    text-shadow: 0 4px 14px rgba(0,0,0,0.4);
 }
 
-.hero p {
-    font-size: 20px;
-    margin-bottom: 20px;
+.hero-content p {
+    font-size: 22px;
+    margin-bottom: 25px;
+    opacity: 0.9;
+}
+
+.hero-btn {
+    font-size: 18px;
+    padding: 14px 28px;
+    background: linear-gradient(135deg, #8b4513, #d18a48);
+    border-radius: 10px;
+    text-shadow: 0 2px 6px rgba(0,0,0,0.4);
+    transition: 0.3s;
+}
+
+.hero-btn:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.35);
+}
+
+/* Анимация появления */
+@keyframes heroFade {
+    from {
+        opacity: 0;
+        transform: translateY(35px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .btn {
@@ -97,7 +222,34 @@ body {
     border-radius: 14px;
     box-shadow: 0 8px 20px rgba(0,0,0,0.1);
     text-align: center;
-    transition: transform .3s ease, box-shadow .3s ease;
+    transition: transform .5s ease, box-shadow .3s ease;
+    position: relative;
+    overflow: hidden;
+    transform: translateZ(0);
+}
+
+.card::before {
+    content: "";
+    position: absolute;
+    top: -100%;
+    left: -100%;
+    width: 200%;
+    height: 200%;
+    pointer-events: none;
+    background: linear-gradient(
+        120deg,
+        transparent 0%,
+        rgba(255,255,255,0.25) 40%,
+        transparent 80%
+    );
+    transform: rotate(25deg);
+    transition:  transform .7s ease;
+}
+
+.card:hover::before {
+    top: 100%;
+    left: 100%;
+    transform: translate(50%, 50%);
 }
 
 .card:hover {
@@ -108,21 +260,45 @@ body {
 .card img {
     width: 100%;
     border-radius: 10px;
+    transition: 0.3s ease;
 }
-
-.btn-sm {
+.btn, .btn-sm {
+    position: relative;
     display: inline-block;
-    margin-top: 10px;
-    padding: 8px 18px;
-    background: #8b4513;
+    padding: 12px 26px;
+    border-radius: 10px;
     color: white;
-    border-radius: 6px;
+    font-weight: 600;
     text-decoration: none;
+    background: linear-gradient(135deg, #8b4513, #d18a48);
+    transition: 0.3s ease;
 }
 
-.btn-sm:hover {
-    background: #6e3610;
+.btn::after, .btn-sm::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 2px;
+    background: linear-gradient(135deg, #e7b787, #8b4513);
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: 0.3s ease;
 }
+
+.btn:hover::after, .btn-sm:hover::after {
+    opacity: 1;
+}
+
+.btn:hover, .btn-sm:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+}
+
 
 /* Форма */
 .form-block {
@@ -347,5 +523,28 @@ input:focus {
 
     .thanks-box p {
         font-size: 16px;
+    }
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: #f3ede6;
+}
+
+.reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    animation: revealAnim 1s ease-out forwards;
+    animation-timeline: view();        /* Modern CSS scroll-driven animations */
+    animation-range: entry 0% cover 40%;
+}
+
+@keyframes revealAnim {
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
